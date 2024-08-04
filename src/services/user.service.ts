@@ -3,6 +3,7 @@ import { UserRepository } from '../db-repositories/user.repo';
 import { getTranslatedMessage } from '../utils/locales/translate-helpers';
 import IRequest from '../interfaces/i-request';
 import { IUser, role } from '../models/user.model';
+import { string } from 'joi';
 
 
 class UserService {
@@ -10,12 +11,13 @@ class UserService {
 
   public async getKhademUsers(currentPage: number | 1, pageSize: number | 0, searchKey: string, currentUserId: string = '') {
 
-    const searchQuery: any = {};
-    searchQuery.name = { $regex: '.*' + searchKey + '.*' };
+    let searchQuery: any = {};
+    searchKey ? searchQuery.name = { $regex: '.*' + searchKey + '.*' } : "";
     searchQuery.khadem = currentUserId;
     const sortQuery = { name: 1 };
-    const users = await this.userRepository.getPage(currentPage, pageSize, searchQuery, sortQuery)
-    const count = await this.userRepository.getCount();
+    const selectedFields:string = '';
+    const users = await this.userRepository.getPage(currentPage, pageSize, searchQuery, sortQuery,selectedFields);
+    const count = await this.userRepository.getCount(searchQuery);
 
     return { users, count };
   }
@@ -25,8 +27,9 @@ class UserService {
     searchKey ? searchQuery.name = { $regex: '.*' + searchKey + '.*' } : "";
     searchQuery.carVisitor = currentUserId;
     const sortQuery = { name: 1 };
-    const users = await this.userRepository.getPage(currentPage, pageSize, searchQuery, sortQuery)
-    const count = await this.userRepository.getCount();
+    const selectedFields:string = 'name mobile hasCar addressDetails locationOnGoogleMap area whatsapp';
+    const users = await this.userRepository.getPage(currentPage, pageSize, searchQuery, sortQuery,selectedFields);
+    const count = await this.userRepository.getCount(searchQuery);
 
     return { users, count };
   }

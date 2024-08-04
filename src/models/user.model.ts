@@ -17,22 +17,23 @@ export enum user_status {
 
 export interface IUser {
   _id?: string;
-  image: string;
   name?: string;
+  image?: string;
   email?: string;
   mobile?: string;
-  egyMobile: string;
+  egyMobile?: string;
   whatsapp?: string;
   password?: string;
-  area: string;
-  addressDetails: string;
-  locationOnGoogleMap: string;
-  wifeStatus: string;
-  khadem: string
-  hasCar: boolean,
-  carVisitor: string,
+  area?: string;
+  addressDetails?: string;
+  locationOnGoogleMap?: string;
+  wifeStatus?: string;
+  khadem?: string
+  hasCar?: boolean,
+  carVisitor?: string,
+  status?: user_status;
+  notes?:string;
   roles?: [role];
-  status: user_status;
 }
 
 
@@ -54,7 +55,7 @@ const userSchema = new mongoose.Schema(
     locationOnGoogleMap: String,
     khadem: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     hasCar: Boolean,
-    carVisitor: String,
+    carVisitor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     status: { type: String, enum: user_status, default: 'in_riyadh' },
     roles: [{ type: String, enum: role, default: 'end_user' }]
 

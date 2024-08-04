@@ -10,6 +10,7 @@ let usersController = new UsersController();
 const router: Router = Router();
 
 router.get('/', auth, AuthorizeRole([role.admin, role.khadem]), usersController.getKhademUsers);
+router.get('/khadem-users', auth, AuthorizeRole([role.admin, role.khadem]), usersController.getKhademUsers);
 router.get('/car-users', auth, AuthorizeRole([role.admin, role.car_visitor]), usersController.getCarVisitorUsers);
 
 router.get('/:id', auth, AuthorizeRole([role.khadem, role.car_visitor, role.khadem]), usersController.getUserById);

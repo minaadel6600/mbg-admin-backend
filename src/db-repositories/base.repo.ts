@@ -11,11 +11,11 @@ export class GenericRepository<T> {
   public async getAll(): Promise<T[]> {
     return await this._model.find();
   }
-  public async getCount(): Promise<number> {
-    return await this._model.countDocuments();
+  public async getCount(searchQuery:Object={}): Promise<number> {
+    return await this._model.countDocuments(searchQuery);
   }
-  public async getPage(currentPage:number , pageSize:number,searchQuery:Object,sortQuery:Object): Promise<T[]> {
-    return await this._model.find(searchQuery).sort(sortQuery).skip((currentPage)*pageSize).limit(pageSize);
+  public async getPage(currentPage:number , pageSize:number,searchQuery:Object,sortQuery:Object,selectedFields:string=''): Promise<T[]> {
+    return await this._model.find(searchQuery).select(selectedFields).sort(sortQuery).skip((currentPage)*pageSize).limit(pageSize);
   }
   public async getById(id: string): Promise<T> {
     return await this._model.findById(id);
