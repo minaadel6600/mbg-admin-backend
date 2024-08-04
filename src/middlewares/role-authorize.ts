@@ -9,10 +9,11 @@ const AuthorizeRole = (allowedRoles: role[]) => {
   return async (req: IRequest, res: Response, next: NextFunction) => {
 
     try {
+      console.log(req.user?.roles)
       const userRoles = req.user?.roles || [];
       // if not at least one role exist in allowed roles then break the process
       if (!userRoles.some((r) => allowedRoles.includes(r))) {
-        throw new HttpError(401,
+        throw new HttpError(403,
           getTranslatedMessage("ar", 'USER_UNAUTHORIZED')
         );
       }

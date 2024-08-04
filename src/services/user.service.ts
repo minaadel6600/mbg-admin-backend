@@ -8,22 +8,22 @@ import { IUser, role } from '../models/user.model';
 class UserService {
   public userRepository = new UserRepository();
 
-  public async getKhademUsers(currentPage: number | 1, pageSize: number | 0, searchKey: string, userId: string = '') {
+  public async getKhademUsers(currentPage: number | 1, pageSize: number | 0, searchKey: string, currentUserId: string = '') {
 
     const searchQuery: any = {};
     searchQuery.name = { $regex: '.*' + searchKey + '.*' };
-    searchQuery.khadem = "66aa61f13d2339a7c6eb6f29";
+    searchQuery.khadem = currentUserId;
     const sortQuery = { name: 1 };
     const users = await this.userRepository.getPage(currentPage, pageSize, searchQuery, sortQuery)
     const count = await this.userRepository.getCount();
 
     return { users, count };
   }
-  public async getCarVisitorUsers(currentPage: number | 1, pageSize: number | 0, searchKey: string, userId: string = '') {
+  public async getCarVisitorUsers(currentPage: number | 1, pageSize: number | 0, searchKey: string, currentUserId: string = '') {
 
     let searchQuery: any = {};
     searchKey ? searchQuery.name = { $regex: '.*' + searchKey + '.*' } : "";
-    searchQuery.carVisitor = "66aa61f13d2339a7c6eb6f29";
+    searchQuery.carVisitor = currentUserId;
     const sortQuery = { name: 1 };
     const users = await this.userRepository.getPage(currentPage, pageSize, searchQuery, sortQuery)
     const count = await this.userRepository.getCount();

@@ -13,7 +13,8 @@ export enum en {
   BOOK_ADD_FAIL = "book added failed",
   BOOK_DELETE_SUCCESS = "book deleted successfully",
   BOOK_DELETE_FAIL = "book delete failed",
-  UPLOAD_SUCCESS = "upload succeeded"
+  UPLOAD_SUCCESS = "upload succeeded",
+  MOBILE_ALREADY_REGISTERED="Mobile is already registered before"
 
 
 }
@@ -32,7 +33,9 @@ export enum ar {
   BOOK_ADD_FAIL = "فشل اضافة الكتاب",
   BOOK_DELETE_SUCCESS = "تم حذف الكتاب بنجاح",
   BOOK_DELETE_FAIL = "فشل حذف الكتاب",
-  UPLOAD_SUCCESS = "تم الرفع بنجاح"
+  UPLOAD_SUCCESS = "تم الرفع بنجاح",
+  MOBILE_ALREADY_REGISTERED="تم التسحيل برقم الموبيل من قبل"
+
 
 }
 

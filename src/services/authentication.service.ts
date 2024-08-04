@@ -20,9 +20,9 @@ class AuthenticationService {
 
   public async registerService(req: any, userData: IUser) {
     if (
-      await this.userRepository.getOne({ email: userData.email })
+      await this.userRepository.getOne({ mobile: userData.mobile })
     ) {
-      throw new HttpError(400, getTranslatedMessage("ar", 'EMAIL_ALREADY_REGISTERED') + ' ' + userData.email);
+      throw new HttpError(400, getTranslatedMessage("ar", 'MOBILE_ALREADY_REGISTERED') + ' ' + userData.mobile);
     }
     if (userData.password) {
       const hashedPassword = await bcrypt.hash(userData.password, 10);
@@ -33,11 +33,10 @@ class AuthenticationService {
     return { user };
   }
 
-  public async loginService(req: IRequest, loginData: { email: string, password: string }) {
+  public async loginService(req: IRequest, loginData: { mobile: string, password: string }) {
 
-
-    let us
-    const user = await this.userRepository.getOne({ email: loginData.email });
+ 
+    const user = await this.userRepository.getOne({ mobile: loginData.mobile });
 
     if (!user) throw new HttpError(404, getTranslatedMessage("ar", "EMAIL_PASSWORD_INVALID"));
 

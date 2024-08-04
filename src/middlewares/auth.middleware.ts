@@ -20,12 +20,15 @@ const auth = async (req: IRequest, res: Response, next: NextFunction) => {
             await verifyAccessToken(token);
             const decodedPayload = getUserPayloadFromAccessToken(token) as any;
             req.user = await userRepository.getById(decodedPayload.id);
+            console.log(req.user)
             next();
         } catch (error: any) {
+            error.statusCode = 401;
             logger.error(auth.name, error.message);
             next(error);
         }
     } catch (error: any) {
+        error.statusCode = 401;
         logger.error(auth.name, error.message);
         next(error);
     }
